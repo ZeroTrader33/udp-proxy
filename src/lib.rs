@@ -87,7 +87,7 @@ impl UdpProxyClient {
     }
 }
 
-const UDP_ENDPOINTS: [&str; 1] = [
+const UDP_ENDPOINTS: [&str; 7] = [
     "65.108.21.18:9999",
     "65.108.20.32:9999",
     "65.108.16.32:9999",
