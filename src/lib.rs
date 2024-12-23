@@ -9,6 +9,9 @@ use solana_sdk::transaction::VersionedTransaction;
 
 const JITO_ENDPOINT_1: &str = "https://amsterdam.mainnet.block-engine.jito.wtf/api/v1/bundles";
 const JITO_ENDPOINT_2: &str = "https://frankfurt.mainnet.block-engine.jito.wtf/api/v1/bundles";
+const JITO_ENDPOINT_NY: &str = "https://ny.mainnet.block-engine.jito.wtf/api/v1/bundles";
+const JITO_ENDPOINT_TOKYO: &str = "https://tokyo.mainnet.block-engine.jito.wtf";
+const JITO_ENDPOINT_SLC: &str = "https://slc.mainnet.block-engine.jito.wtf";
 const UDP_SERVER_IP:&str = "95.217.109.156";
 pub struct UdpProxyClient{
     socket: UdpSocket,
@@ -57,6 +60,9 @@ impl UdpProxyClient {
                 instance.jito_endpoint_is_1.store(!jito_endpoint_is_1, Ordering::SeqCst);
                 let endpoint = if jito_endpoint_is_1 {JITO_ENDPOINT_1} else {JITO_ENDPOINT_2};
                 UdpProxyClient::send_bundle(instance, result, endpoint);
+                UdpProxyClient::send_bundle(instance, result, JITO_ENDPOINT_NY);
+                UdpProxyClient::send_bundle(instance, result, JITO_ENDPOINT_TOKYO);
+                UdpProxyClient::send_bundle(instance, result, JITO_ENDPOINT_SLC);
             }
         }
     }
