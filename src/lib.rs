@@ -59,10 +59,10 @@ impl UdpProxyClient {
                 let jito_endpoint_is_1 = instance.jito_endpoint_is_1.load(Ordering::SeqCst);
                 instance.jito_endpoint_is_1.store(!jito_endpoint_is_1, Ordering::SeqCst);
                 let endpoint = if jito_endpoint_is_1 {JITO_ENDPOINT_1} else {JITO_ENDPOINT_2};
-                UdpProxyClient::send_bundle(instance, result, endpoint);
-                UdpProxyClient::send_bundle(instance, result, JITO_ENDPOINT_NY);
-                UdpProxyClient::send_bundle(instance, result, JITO_ENDPOINT_TOKYO);
-                UdpProxyClient::send_bundle(instance, result, JITO_ENDPOINT_SLC);
+                UdpProxyClient::send_bundle(instance, result.clone(), endpoint);
+                UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_NY);
+                UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_TOKYO);
+                UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_SLC);
             }
         }
     }
