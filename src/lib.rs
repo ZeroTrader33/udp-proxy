@@ -55,7 +55,7 @@ impl UdpProxyClient {
             
             // println!("received -> {}, {:#?}", result, src_addr.to_string());
             if src_addr.ip().to_string().eq(UDP_SERVER_IP) {
-                println!("received real -> {}", result);
+                // println!("received real -> {}", result);
                 let jito_endpoint_is_1 = instance.jito_endpoint_is_1.load(Ordering::SeqCst);
                 instance.jito_endpoint_is_1.store(!jito_endpoint_is_1, Ordering::SeqCst);
                 let endpoint = if jito_endpoint_is_1 {JITO_ENDPOINT_1} else {JITO_ENDPOINT_2};
