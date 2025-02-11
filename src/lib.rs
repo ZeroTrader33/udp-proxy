@@ -12,7 +12,7 @@ const JITO_ENDPOINT_2: &str = "https://frankfurt.mainnet.block-engine.jito.wtf/a
 const JITO_ENDPOINT_NY: &str = "https://ny.mainnet.block-engine.jito.wtf/api/v1/bundles";
 const JITO_ENDPOINT_TOKYO: &str = "https://tokyo.mainnet.block-engine.jito.wtf";
 const JITO_ENDPOINT_SLC: &str = "https://slc.mainnet.block-engine.jito.wtf";
-const UDP_SERVER_IP:&str = "95.217.109.156";
+const UDP_SERVER_IP:&str = "172.82.90.170";
 pub struct UdpProxyClient{
     socket: UdpSocket,
     req_client: reqwest::Client,
@@ -56,12 +56,12 @@ impl UdpProxyClient {
             // println!("received -> {}, {:#?}", result, src_addr.to_string());
             if src_addr.ip().to_string().eq(UDP_SERVER_IP) {
                 // println!("received real -> {}", result);
-                let jito_endpoint_is_1 = instance.jito_endpoint_is_1.load(Ordering::SeqCst);
-                instance.jito_endpoint_is_1.store(!jito_endpoint_is_1, Ordering::SeqCst);
-                let endpoint = if jito_endpoint_is_1 {JITO_ENDPOINT_1} else {JITO_ENDPOINT_2};
-                UdpProxyClient::send_bundle(instance, result.clone(), endpoint);
+                // let jito_endpoint_is_1 = instance.jito_endpoint_is_1.load(Ordering::SeqCst);
+                // instance.jito_endpoint_is_1.store(!jito_endpoint_is_1, Ordering::SeqCst);
+                // let endpoint = if jito_endpoint_is_1 {JITO_ENDPOINT_1} else {JITO_ENDPOINT_2};
+                // UdpProxyClient::send_bundle(instance, result.clone(), endpoint);
                 UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_NY);
-                UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_TOKYO);
+                // UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_TOKYO);
                 UdpProxyClient::send_bundle(instance, result.clone(), JITO_ENDPOINT_SLC);
             }
         }
@@ -92,15 +92,12 @@ impl UdpProxyClient {
         
     }
 }
-
-const UDP_ENDPOINTS: [&str; 7] = [
-    "65.108.21.18:9999",
-    "65.108.20.32:9999",
-    "65.108.16.32:9999",
-    "95.217.81.76:9999",
-    "135.181.10.244:9999",
-    "135.181.185.146:9999",
-    "135.181.135.164:9999"
+const UDP_ENDPOINTS: [&str; 5] = [
+    "172.86.104.156:9999",
+    "172.86.105.235:9999",
+    "172.86.106.15:9999",
+    "172.86.109.236:9999",
+    "172.86.105.215:9999",
 ];
 #[derive(Debug)]
 pub struct BundleSender {
